@@ -1,30 +1,46 @@
-import logo from './logo.svg';
+import React, {Suspense} from 'react';
 import './App.css';
-import React,{useState} from 'react';
-import {I18nProvider, LOCALES} from './i18n';
-import { IntlProvider } from 'react-intl';
-import {FormattedMessage} from 'react-intl';
+import {useTranslation} from "react-i18next";
 
-function App() {
-  const [locale, setLocale] = useState(LOCALES.ENGLISH);
-  return (
-    
-    <I18nProvider locale={locale}>
-    <div className="App">
-      <header className="App-header">
-        <FormattedMessage id="hello"/>
-                <img src={logo} className="App-logo" alt="logo" />
-        <p>
-        <FormattedMessage id="edit"/>
-        </p>
-        <button onClick={()=> setLocale(LOCALES.ENGLISH)}>ENGLISH</button>
-        <button onClick={()=> setLocale(LOCALES.TURKISH)}>TURKISH</button>
-      </header>
+function HeaderComponent()
+{
+    const [t, i18n] = useTranslation('common');
+    return <div>
+        <h1>{t('welcome.title', {framework:'React'})}</h1>
+        <button onClick={() => i18n.changeLanguage('tr')}>tr</button>
+        <button onClick={() => i18n.changeLanguage('en')}>en</button>
     </div>
-    
-    </I18nProvider>
-    
-  );
+}
+
+function Bottom()
+{
+    const [t, i18n] = useTranslation('common');
+    return <div>
+        <h1>{t('welcome.message', {framework:'React'})}</h1>
+    </div>
+}
+
+function App()
+{
+    return (
+      
+      <div
+      style={{
+        backgroundColor: 'gray',
+        color: 'white',
+        width: '100%',
+        height: '100%'
+      }}
+    >
+        <Suspense fallback="loading">
+            <div className="App">
+            
+        <HeaderComponent/>
+        <Bottom/>
+            </div>
+        </Suspense>
+        </div>
+    );
 }
 
 export default App;
