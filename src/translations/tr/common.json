@@ -1,6 +1,8 @@
 {
     "welcome": {
         "title": "{{framework}} e Hoş Geldiniz",
-        "message": "ben translations/en/common.json'un içerisindeyim."
+        "message": "ben translations/en/common.json'un içerisindeyim.",
+        "people": "herkese selam!"
+
     }
 }

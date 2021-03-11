@@ -2,23 +2,6 @@ import React, {Suspense} from 'react';
 import './App.css';
 import {useTranslation} from "react-i18next";
 
-function HeaderComponent()
-{
-    const [t, i18n] = useTranslation('common');
-    return <div>
-        <h1>{t('welcome.title', {framework:'React'})}</h1>
-        <button onClick={() => i18n.changeLanguage('tr')}>tr</button>
-        <button onClick={() => i18n.changeLanguage('en')}>en</button>
-    </div>
-}
-
-function Bottom()
-{
-    const [t, i18n] = useTranslation('common');
-    return <div>
-        <h1>{t('welcome.message', {framework:'React'})}</h1>
-    </div>
-}
 
 function App()
 {
@@ -37,10 +20,45 @@ function App()
             
         <HeaderComponent/>
         <Bottom/>
+        <Melih/>
             </div>
         </Suspense>
         </div>
     );
+}
+
+
+
+
+
+
+
+
+
+function HeaderComponent()
+{
+    const [t, i18n] = useTranslation('common');
+    return <div>
+        <h1>{t('welcome.title', {framework:'React'})}</h1>
+        <button onClick={() => i18n.changeLanguage('tr')}>tr</button>
+        <button onClick={() => i18n.changeLanguage('en')}>en</button>
+    </div>
+}
+
+function Bottom()
+{
+    const [t, i18n] = useTranslation('common');
+    return <div>
+        <h1>{t('welcome.message', {framework:'React'})}</h1>
+    </div>
+}
+
+function Melih()
+{
+    const [t, i18n] = useTranslation('common');
+    return <div>
+        <h1>{t('welcome.people', {framework:'React'})}</h1>
+    </div>
 }
 
 export default App;

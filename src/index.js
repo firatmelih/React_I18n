@@ -11,10 +11,10 @@ import common_en from "./translations/en/common.json";
 
 i18next.init({
     interpolation: { escapeValue: false },  // React already does escaping
-    lng: 'en',                              // language to use
+    lng: 'en',                              // DEFAULT KULLANACAĞIMIZ DİL
     resources: {
         en: {
-            common: common_en               // 'common' is our custom namespace
+            common: common_en               // 'common' isteğe bağlı verdiğimiz isim
         },
         tr: {
             common: common_tr
@@ -22,9 +22,6 @@ i18next.init({
     },
 });
 
-i18next.init({
-  interpolation: { escapeValue: false },  // React already does escaping
-});
 
 ReactDOM.render(
   <React.StrictMode>
@@ -35,7 +32,4 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

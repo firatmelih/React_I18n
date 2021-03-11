@@ -1,6 +1,7 @@
 {
     "welcome": {
         "title": "Welcome to {{framework}}",
-        "message": "I am in translations/en/common.json"
+        "message": "I am in translations/en/common.json",
+        "people": "Hey people"
     }
 }

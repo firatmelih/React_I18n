@@ -1,70 +1,103 @@
-# Getting Started with Create React App
+# React ile I18n 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## I18n nedir?
 
-## Available Scripts
+I18n basitçe websitelerinize çoklu dil desteğini sağlamak için yazılmış bir pakettir. Bu projede kullandığım ise bu paketin React'e uyarlanmış halidir.
 
-In the project directory, you can run:
+## Nasıl Kurulur?
 
-### `yarn start`
+Öncelikle terminalden gerekli node paketlerimizi indiriyoruz.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```properties
+melih@desktop:~$ npm install i18next react-i18next --save
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+src dizininde dil dosyalarını tutacak bir klasör oluşturacağız, yazdığımız kod çevirileri buradan çekecek.
 
-### `yarn test`
+<img src="https://cdn.discordapp.com/attachments/750658674078253158/819483633727176725/translate-dizin.png">
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+*Ben böyle olmasını uygun gördüm, kodlarımı birebir alacaksanız hata yaşamamanız için sizin de birebir bu şekilde yapmanız gerekir.*
 
-### `yarn build`
+src > translations > en > common.json;
+``` json
+{
+    example:{
+        children: "This is an example translate."
+    }
+}
+```
+src > translations > tr > common.json;
+``` json
+{
+    example:{
+        children: "Bu örnek bir çeviridir."
+    }
+}
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+src > index.js' da ihtiyacımız olan çağırmaları yapacağız;
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+``` javascript
+import {I18nextProvider} from "react-i18next";
+import i18next from "i18next";
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+import common_tr from "./translations/tr/common.json";
+import common_en from "./translations/en/common.json";
+```
 
-### `yarn eject`
+src > index.js' da çağırdığımız i18next' i tanımlıyoruz.
+``` javascript
+i18next.init({
+    interpolation: { escapeValue: false },  // REACT ZATENKAÇIŞ SAĞLIYOR
+    lng: 'en',                              // DEFAULT KULLANACAĞIMIZ DİL
+    resources: {
+        en: {
+            common: common_en               // 'common' json'un adı
+        },
+        tr: {
+            common: common_tr
+        },
+    },
+});
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+// App' i i18next'in içine alıyoruz ki kalıtımları alsın.
+ <I18nextProvider i18n={i18next}> 
+            <App/>
+  </I18nextProvider>
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+src > App.js' da çağırmalarımızı yapıyoruz.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+``` javascript
+import {useTranslation} from "react-i18next";
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+src > App.js' da örnek bir translate kullanımı;
 
-## Learn More
+``` javascript
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+// TANIMLANIŞ
+function ExampleTranslate()
+{
+    const [t, i18n] = useTranslation('common');
+    return <div>
+        <h1>{t('example.children')}</h1>
+        <button onClick={() => i18n.changeLanguage('tr')}>tr</button>
+        <button onClick={() => i18n.changeLanguage('en')}>en</button>
+    </div>
+}
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+// KULLANIM
+function App()
+{
+    return (
+        <ExampleTranslate/> // Ekrana seçilen dile ait .json dosyasının belli kısmını basacaktır.
+    );
+}
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```
 
-### Analyzing the Bundle Size
+Yazan: Melih FIRAT
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
