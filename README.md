@@ -21,16 +21,16 @@ src dizininde dil dosyalarını tutacak bir klasör oluşturacağız, yazdığı
 src > translations > en > common.json;
 ``` json
 {
-    example:{
-        children: "This is an example translate."
+    "example":{
+        "children": "This is an example translate."
     }
 }
 ```
 src > translations > tr > common.json;
 ``` json
 {
-    example:{
-        children: "Bu örnek bir çeviridir."
+    "example":{
+        "children": "Bu örnek bir çeviridir."
     }
 }
 ```
